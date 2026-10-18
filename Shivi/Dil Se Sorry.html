@@ -1,0 +1,497 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dil Se Sorry</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Nunito+Sans:wght@400;600;800&family=Caveat:wght@500;700&display=swap">
+<style>
+/* Layout: a rainy-night letter. Hero with a framed picture, the regret letter, a full-width wall of tiny "sorry" with a crying face whose tears are letters, a tap-to-sorry counter, a grid of gift boxes to open, and a kneeling picture to close. */
+:root {
+  --bg: #0d1230;
+  --bg-2: #171d48;
+  --bg-3: #212862;
+  --ink: #eef0ff;
+  --ink-soft: #a9b0dc;
+  --tear: #7fd3ff;
+  --rose: #ff8fa6;
+  --gold: #ffd9a0;
+  --line: #2f3875;
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-body: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(55rem 34rem at 100% 0%, rgba(127, 211, 255, 0.13), transparent 60%),
+    radial-gradient(48rem 30rem at 0% 55%, rgba(255, 143, 166, 0.10), transparent 60%);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  padding-block: 0 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+.wrap { max-width: 64rem; margin-inline: auto; min-width: 0; }
+.col { max-width: 38rem; min-width: 0; }
+
+section { padding-block: 4.5rem; }
+
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem; }
+
+h1, h2 { font-family: var(--font-display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.02; }
+h1 { font-size: clamp(2.9rem, 11vw, 5.6rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(2rem, 7vw, 3.2rem); }
+h1 em, h2 em { color: var(--rose); font-style: italic; }
+
+p { margin: 0; }
+
+/* hero */
+.hero { padding-top: 3.5rem; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 3rem; align-items: center; }
+.hero .lead { margin-top: 1.5rem; color: var(--ink-soft); font-size: 1.15rem; max-width: 30rem; }
+.hero .hand { margin-top: 1.5rem; font-family: var(--font-hand); font-size: 1.9rem; color: var(--gold); line-height: 1.1; }
+
+.frame {
+  position: relative;
+  background: #f4efe6;
+  padding: 0.7rem 0.7rem 2.6rem;
+  border-radius: 3px;
+  transform: rotate(2deg);
+  box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.5);
+  max-width: 26rem;
+  justify-self: center;
+  width: 100%;
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  width: 6.5rem;
+  height: 1.7rem;
+  background: rgba(255, 217, 160, 0.78);
+  transform: translateX(-50%) rotate(-3deg);
+}
+.frame .slot { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-3); }
+.frame .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.frame figcaption { position: absolute; left: 0; right: 0; bottom: 0.55rem; text-align: center; font-family: var(--font-hand); font-size: 1.55rem; color: #3b2a3a; line-height: 1.2; }
+.frame { margin: 0; }
+
+.fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; background: linear-gradient(160deg, #26307a, #3a2a68 55%, #5a2f6e); }
+.fallback svg { width: 46%; height: auto; }
+.fallback .word { font-family: var(--font-hand); font-size: 3.2rem; color: var(--gold); line-height: 1; }
+
+/* regret */
+.regret .col { display: flex; flex-direction: column; gap: 1.2rem; }
+.regret h2 { margin-bottom: 0.8rem; }
+.regret .soft { color: var(--ink-soft); }
+.quote {
+  margin-top: 1.5rem;
+  max-width: 38rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5.5vw, 2.1rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--tear);
+}
+
+/* sorry wall */
+.wall-sec { padding-block: 2rem 4.5rem; }
+.wall-head { margin-bottom: 1.5rem; max-width: 38rem; }
+.wall-head p { color: var(--ink-soft); margin-top: 0.8rem; }
+.wall {
+  position: relative;
+  height: 31rem;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+}
+.wall-text {
+  position: absolute;
+  inset: 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.7rem;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  word-spacing: 0.15em;
+  color: rgba(169, 176, 220, 0.55);
+  overflow: hidden;
+  text-align: justify;
+  user-select: none;
+}
+.face {
+  position: relative;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1rem var(--bg-2), 0 0 0 1.1rem var(--line), 0 1.5rem 3rem rgba(0, 0, 0, 0.45);
+}
+.face svg { display: block; width: 100%; height: 100%; }
+.tear {
+  position: absolute;
+  top: 47%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1.4rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.08;
+  color: var(--tear);
+  text-shadow: 0 0 0.6rem rgba(127, 211, 255, 0.6);
+}
+.tear.l { left: 24.5%; }
+.tear.r { left: 66%; }
+.tear span { animation: drip 2.6s ease-in infinite; animation-delay: calc(var(--i) * 0.24s); }
+@keyframes drip {
+  0% { transform: translateY(-5px); opacity: 0.1; }
+  30% { opacity: 1; }
+  100% { transform: translateY(11px); opacity: 0.08; }
+}
+.wall-cap { margin-top: 1rem; font-family: var(--font-hand); font-size: 1.6rem; color: var(--gold); line-height: 1.2; }
+
+/* maafi */
+.maafi { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+.maafi .lead { margin-top: 1.1rem; color: var(--ink-soft); }
+.admit { list-style: none; margin: 1.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+.admit li { padding-left: 1.9rem; position: relative; }
+.admit li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 1rem;
+  height: 1rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.2 -1.2 2.4 2.4'%3E%3Cpath fill='%23ff8fa6' d='M0 0.6C-1.1 -0.1 -0.6 -1 0 -0.4C0.6 -1 1.1 -0.1 0 0.6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.tap {
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 2rem 1.5rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  overflow: hidden;
+  min-height: 19rem;
+  justify-content: center;
+}
+.count { font-family: var(--font-display); font-size: clamp(3.6rem, 14vw, 5.5rem); line-height: 1; color: var(--tear); font-variant-numeric: tabular-nums; }
+.count-label { color: var(--ink-soft); font-size: 0.95rem; }
+.btn {
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9em 1.8em;
+  background: var(--rose);
+  color: #2a0d1a;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.btn:hover { background: #ffa7b9; }
+.btn:active { transform: scale(0.96); }
+.btn:focus-visible, .gift:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.float {
+  position: absolute;
+  bottom: 38%;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  color: var(--gold);
+  pointer-events: none;
+  animation: floatup 1.8s ease-out forwards;
+  white-space: nowrap;
+}
+@keyframes floatup { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-9rem); opacity: 0; } }
+
+/* gifts */
+.gifts-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.2rem; margin-bottom: 2rem; }
+.gifts-head p { color: var(--ink-soft); margin-top: 0.8rem; max-width: 30rem; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--bg-2); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.8rem, 1fr)); gap: 0.9rem; }
+.gift {
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 0.8rem;
+  min-height: 11.5rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+.gift:hover { transform: translateY(-3px); border-color: var(--rose); }
+.gift .box { width: 4rem; height: 4rem; }
+.gift .tapme { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
+.gift .inside { display: none; flex-direction: column; align-items: center; gap: 0.35rem; }
+.gift .emo { font-size: 2.3rem; line-height: 1; }
+.gift .name { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.1; }
+.gift .desc { font-size: 0.88rem; line-height: 1.4; color: var(--ink-soft); }
+.gift[aria-pressed="true"] { background: var(--bg-3); border-color: var(--gold); }
+.gift[aria-pressed="true"] .closed { display: none; }
+.gift[aria-pressed="true"] .inside { display: flex; animation: pop 0.45s cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: none; opacity: 1; } }
+.closed { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+
+/* ending */
+.end { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: center; padding-bottom: 5rem; }
+.end .lead { margin-top: 1.2rem; color: var(--ink-soft); max-width: 30rem; }
+.end .hand { margin-top: 1.4rem; font-family: var(--font-hand); font-size: 1.9rem; line-height: 1.15; color: var(--gold); }
+.pic { position: relative; max-width: 26rem; width: 100%; justify-self: center; aspect-ratio: 1 / 1; }
+.pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.pic .fallback { background: radial-gradient(circle at 50% 55%, rgba(255, 143, 166, 0.28), transparent 68%); }
+.pic .fallback svg { width: 62%; }
+
+footer { border-top: 1px solid var(--line); padding-block: 2rem 3rem; font-family: var(--font-hand); font-size: 1.5rem; color: var(--ink-soft); text-align: center; }
+
+@media (max-width: 760px) {
+  .hero, .maafi, .end { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .hero .frame { order: -1; transform: rotate(1.5deg); max-width: 21rem; }
+  .end .pic { order: -1; max-width: 20rem; }
+  section { padding-block: 3.5rem; }
+  .wall { height: 27rem; }
+  .face { width: 12.5rem; height: 12.5rem; }
+  .tear { font-size: 1rem; width: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tear span, .float, .gift[aria-pressed="true"] .inside { animation: none; }
+  .tear span { opacity: 1; }
+  .gift, .btn { transition: none; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="box" viewBox="0 0 64 64">
+      <rect x="8" y="26" width="48" height="30" rx="4" fill="#ff8fa6"/>
+      <rect x="5" y="18" width="54" height="12" rx="4" fill="#ffa9bb"/>
+      <rect x="28" y="18" width="8" height="38" fill="#ffd9a0"/>
+      <path d="M32 18C24 6 12 10 18 17C21 20 28 18 32 18Z" fill="#ffd9a0"/>
+      <path d="M32 18C40 6 52 10 46 17C43 20 36 18 32 18Z" fill="#ffd9a0"/>
+    </symbol>
+    <symbol id="heart" viewBox="-1.2 -1.2 2.4 2.4">
+      <path d="M0 0.6C-1.1 -0.1 -0.6 -1 0 -0.4C0.6 -1 1.1 -0.1 0 0.6Z" fill="#ff8fa6"/>
+    </symbol>
+    <symbol id="rose" viewBox="0 0 100 140">
+      <path d="M50 70C50 100 46 120 44 138" stroke="#5fbf8a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M48 108C32 104 24 94 22 86C36 88 46 94 48 108Z" fill="#5fbf8a"/>
+      <path d="M50 22C32 22 24 40 32 56C38 68 62 68 68 56C76 40 68 22 50 22Z" fill="#ff5f80"/>
+      <path d="M50 30C40 32 38 46 46 52C54 56 62 48 58 38C56 33 53 30 50 30Z" fill="#ff8fa6"/>
+      <path d="M46 40C48 36 54 38 52 44" stroke="#c9304f" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <section class="hero" aria-labelledby="top-h">
+    <div class="col">
+      <p class="eyebrow">Dil se, bina kisi bahane ke</p>
+      <h1 id="top-h">Mujhe <em>maaf</em> kar do.</h1>
+      <p class="lead">Meri galti thi, aur uska pachtawa mujhe har roz andar se kha raha hai. Ye page sirf tumhe sorry bolne ke liye banaya hai.</p>
+      <p class="hand">Please, ek baar mera sorry sun lo.</p>
+    </div>
+    <figure class="frame">
+      <div class="slot">
+        <div class="fallback" data-fallback>
+          <svg viewBox="-1.2 -1.2 2.4 2.4" aria-hidden="true"><path fill="#ff8fa6" d="M0 0.6C-1.1 -0.1 -0.6 -1 0 -0.4C0.6 -1 1.1 -0.1 0 0.6Z"/></svg>
+          <span class="word">sorry</span>
+        </div>
+        <img data-pic src="https://github.com/priyanshush0/st-andrew-img-logo/blob/main/animesher.com_love-sorry-school-696313.jpg?raw=true" alt="Sorry bolti hui anime illustration" referrerpolicy="no-referrer" hidden>
+      </div>
+      <figcaption>sorry, meri jaan</figcaption>
+    </figure>
+  </section>
+
+  <section class="regret" aria-labelledby="regret-h">
+    <div class="col">
+      <h2 id="regret-h">Mujhe sach mein <em>pachtawa</em> hai</h2>
+      <p>Jab se ye hua hai, mera dil kahin nahi lagta. Har cheez mein tum yaad aati ho, aur har baar yaad aata hai ki ye sab meri wajah se hua.</p>
+      <p>Apni galti maanne mein mujhe sharm nahi hai. Mujhe bas afsos hai ki maine tumhe dukh diya. Tumhari aankhon mein jo udaasi aayi, wo meri wajah se aayi, aur ye baat mujhe andar se tod rahi hai.</p>
+      <p class="soft">Main koi bahana nahi de raha. Main bas itna chahta hoon ki tum ek baar meri taraf dekho aur samjho ki ye sorry dil se hai, zabaan se nahi.</p>
+      <p class="quote">Tumhe khone ka dar mujhe meri har galti se bada lagta hai.</p>
+    </div>
+  </section>
+
+  <section class="wall-sec" aria-labelledby="wall-h">
+    <div class="wall-head">
+      <p class="eyebrow">Jahan dekho, bas ek hi lafz</p>
+      <h2 id="wall-h">Meri aankhon se bhi <em>sorry</em> hi girta hai</h2>
+    </div>
+    <div class="wall">
+      <div class="wall-text" id="wall-text" aria-hidden="true"></div>
+      <div class="face" role="img" aria-label="Rota hua udaas chehra, jiske aansuon ki jagah sorry likha hai">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="96" fill="#ffd25e" stroke="#e0a82e" stroke-width="4"/>
+          <path d="M42 76 Q60 56 84 62" stroke="#3a2a17" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M158 76 Q140 56 116 62" stroke="#3a2a17" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="66" cy="92" rx="10" ry="12" fill="#3a2a17"/>
+          <ellipse cx="134" cy="92" rx="10" ry="12" fill="#3a2a17"/>
+          <circle cx="62" cy="87" r="3.6" fill="#fff"/>
+          <circle cx="130" cy="87" r="3.6" fill="#fff"/>
+          <path d="M66 150 Q100 118 134 150" stroke="#3a2a17" stroke-width="7" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="tear l" aria-hidden="true"><span style="--i:0">s</span><span style="--i:1">o</span><span style="--i:2">r</span><span style="--i:3">r</span><span style="--i:4">y</span></div>
+        <div class="tear r" aria-hidden="true"><span style="--i:2">s</span><span style="--i:3">o</span><span style="--i:4">r</span><span style="--i:5">r</span><span style="--i:6">y</span></div>
+      </div>
+    </div>
+    <p class="wall-cap">Ek hazaar baar sorry, aur phir bhi kam lagta hai.</p>
+  </section>
+
+  <section class="maafi" aria-labelledby="maafi-h">
+    <div class="col">
+      <p class="eyebrow">Maafi ka waqt</p>
+      <h2 id="maafi-h">Haath jodkar, <em>maafi.</em></h2>
+      <p class="lead">Jitni baar tum chaho, main sorry bolunga. Neeche ka button dabao aur dekho main kitni baar maafi maang sakta hoon.</p>
+      <ul class="admit">
+        <li>Galti meri thi, poori meri.</li>
+        <li>Tumhe dukh hua, wo bhi meri wajah se.</li>
+        <li>Ab main wahi galti dobara nahi karunga.</li>
+      </ul>
+    </div>
+    <div class="tap" id="tap">
+      <div class="count" id="count" aria-live="polite">0</div>
+      <p class="count-label">baar sorry bola</p>
+      <button type="button" class="btn" id="sorry-btn">Ek aur sorry</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="gift-h">
+    <div class="gifts-head">
+      <div>
+        <p class="eyebrow">Maafi ke saath</p>
+        <h2 id="gift-h">Tumhare liye <em>bahut saare</em> tohfe</h2>
+        <p>Ek-ek box kholo. Sab tumhare liye hain, aur jo tum chahogi wo main sabse pehle laaunga.</p>
+      </div>
+      <button type="button" class="btn ghost" id="open-all">Saare gift kholo</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="end" aria-labelledby="end-h">
+    <div class="col">
+      <p class="eyebrow">Aakhri baat</p>
+      <h2 id="end-h">Ek baar phir, <em>sorry.</em></h2>
+      <p class="lead">Ghutno par baith kar, phool haath mein lekar, bas itna kehta hoon. Mujhe maaf kar do. Main waisa hi banunga jaisa tum chahti ho.</p>
+      <p class="hand">Sorry, meri jaan. Bahut bahut sorry.</p>
+    </div>
+    <div class="pic">
+      <div class="fallback" data-fallback>
+        <svg viewBox="0 0 100 140" aria-hidden="true"><use href="#rose"/></svg>
+      </div>
+      <img data-pic src="https://png.pngtree.com/png-clipart/20240313/original/pngtree-boy-kneeling-with-roses-in-hand-infront-of-girl-png-image_14578842.png" alt="Ladka phool lekar ghutno par baith kar sorry bolta hua" referrerpolicy="no-referrer" hidden>
+    </div>
+  </section>
+
+  <footer>Sirf tumhare liye, dil se.</footer>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* pictures: show a picture only if it really loaded, otherwise keep the drawn fallback */
+  var pics = document.querySelectorAll('img[data-pic]');
+  pics.forEach(function (img) {
+    function show() {
+      img.hidden = false;
+      var fb = img.parentNode.querySelector('[data-fallback]');
+      if (fb) fb.hidden = true;
+    }
+    if (img.complete && img.naturalWidth > 0) show();
+    else img.addEventListener('load', show);
+  });
+
+  /* wall of tiny sorry */
+  var wall = document.getElementById('wall-text');
+  var out = [];
+  for (var i = 0; i < 1800; i++) out.push(i % 9 === 4 ? 'Sorry' : 'sorry');
+  wall.textContent = out.join(' ');
+
+  /* sorry counter */
+  var count = document.getElementById('count');
+  var btn = document.getElementById('sorry-btn');
+  var tap = document.getElementById('tap');
+  var n = 0;
+  var words = ['sorry', 'maaf kar do', 'sorry jaan', 'please', 'galti meri thi', 'sorry sorry'];
+  btn.addEventListener('click', function () {
+    n++;
+    count.textContent = n;
+    if (reduce) return;
+    var s = document.createElement('span');
+    s.className = 'float';
+    s.textContent = words[n % words.length];
+    s.style.left = (12 + Math.random() * 60) + '%';
+    tap.appendChild(s);
+    setTimeout(function () { if (s.parentNode) s.parentNode.removeChild(s); }, 1900);
+  });
+
+  /* gifts */
+  var gifts = [
+    ['🌹', 'Gulaab', 'Ek poora bouquet, jab bhi tum kaho.'],
+    ['🍫', 'Chocolates', 'Teri favourite wali, ek poora dabba.'],
+    ['🧸', 'Bada teddy', 'Itna bada ki tum usme chhup jao.'],
+    ['🍦', 'Ice-cream date', 'Jitni marzi utni, bill meri taraf se.'],
+    ['☕', 'Chai walk', 'Ek lambi walk aur garam chai saath mein.'],
+    ['💌', 'Love letter', 'Haath se likhi, sirf tumhare liye.'],
+    ['🤗', 'Hug coupon', 'Jab chaho, jitni der chaho.'],
+    ['🎬', 'Movie night', 'Tumhari pasand ki film, popcorn mere zimme.'],
+    ['🎧', 'Playlist', 'Wo gaane jo sunte waqt main tumhe yaad karta hoon.'],
+    ['🍕', 'Dinner date', 'Jahan tum chaho, jo tum chaho.'],
+    ['🌙', 'Raat bhar baatein', 'Phone side mein, bas tum aur main.'],
+    ['🎁', 'Surprise', 'Ek surprise jo abhi nahi bataunga.']
+  ];
+  var grid = document.getElementById('grid');
+  gifts.forEach(function (g) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'gift';
+    b.setAttribute('aria-pressed', 'false');
+    b.innerHTML =
+      '<span class="closed"><svg class="box" aria-hidden="true"><use href="#box"/></svg><span class="tapme">Kholo</span></span>' +
+      '<span class="inside"><span class="emo" aria-hidden="true">' + g[0] + '</span><span class="name">' + g[1] + '</span><span class="desc">' + g[2] + '</span></span>';
+    b.addEventListener('click', function () {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      syncAll();
+    });
+    grid.appendChild(b);
+  });
+  var openAll = document.getElementById('open-all');
+  function items() { return grid.querySelectorAll('.gift'); }
+  function allOpen() {
+    var all = true;
+    items().forEach(function (el) { if (el.getAttribute('aria-pressed') !== 'true') all = false; });
+    return all;
+  }
+  function syncAll() { openAll.textContent = allOpen() ? 'Wapas band karo' : 'Saare gift kholo'; }
+  openAll.addEventListener('click', function () {
+    var target = allOpen() ? 'false' : 'true';
+    items().forEach(function (el) { el.setAttribute('aria-pressed', target); });
+    syncAll();
+  });
+})();
+</script>
+
+</body></html>
